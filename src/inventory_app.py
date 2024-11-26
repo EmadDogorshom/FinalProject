@@ -3,6 +3,7 @@
 from business_logic import BusinessLogic
 from prettytable import PrettyTable
 import os
+from datetime import datetime
 
 class InventoryApp():
 	"""Implements household inventory control features."""
@@ -33,7 +34,7 @@ class InventoryApp():
 		"""Display menu."""
 		print('\t\t\tHousehold Inventory Application')
 		print()
-		print('\t\t1. New Inventory (Not Implemented)')
+		print('\t\t1. New Inventory')
 		print('\t\t2. List Inventories')
 		print('\t\t3. Select Inventory')
 		print('\t\t4. List Inventory Items')
@@ -70,8 +71,13 @@ class InventoryApp():
 		self.clear_screen()
 		if __debug__:
 			print('new_inventory() method called...')
-		input('\n\nThis method is not yet implemented. Press any key to continue: ')
-		
+		name = input("Enter a Product Name :  ")
+		description = input("Enter the Product Description : ")
+		today = datetime.now()
+		self.business_logic.create_new_inventory(name,description,today)
+		input(f'One row inserted successfully')
+		input('\n\nPress any key to continue...')
+
 
 	def list_inventories(self):
 		"""List inventories."""

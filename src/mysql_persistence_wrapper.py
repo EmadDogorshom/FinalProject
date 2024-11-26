@@ -10,6 +10,8 @@ class MySQLPersistenceWrapper(PersistenceWrapperInterface):
 		"""Initializes """
 		# Constants
 		self.SELECT_ALL_INVENTORIES = 'SELECT id, name, description FROM inventories'
+		self.INSERT_INVENTORY =  'INSERT INTO inventories (id, name, description, date) VALUES(%s,%s, %s, %s)'
+		#self.STATIC_INSERT= """INSERT INTO inventories(id, name, description, date) VALUES (3,'emad','dsgssdg','2024-11-20')"""
 		self.INSERT = 'INSERT INTO items (inventory_id, item, count) VALUES(%s, %s, %s)'
 		self.SELECT_ALL_ITEMS_FOR_INVENTORY_ID = 'SELECT id, inventory_id, item, count FROM items WHERE inventory_id = %s'
 
@@ -50,8 +52,18 @@ class MySQLPersistenceWrapper(PersistenceWrapperInterface):
 
 	def create_inventory(self, name: str, description: str, date: str):
 		"""Insert new row into inventories table."""
-		pass
-
+		cursor = None
+		
+		try :
+			cursor = self._db_connection.cursor()
+			cursor.execute('select MAX(id)+1 from inventories')
+			result = cursor.fetchone()
+			values = (result[0] + 1 ,name,description,date)
+			cursor.execute(self.INSERT_INVENTORY, values)
+			self._db_connection.commit()
+		except Exception as e:
+			print(f'Exception in Persistance wrapper: {e}')
+		
 
 	def create_item(self, inventory_id: int, item: str, count: int):
 		"""Insert new row into items table for given inventory id"""
