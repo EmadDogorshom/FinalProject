@@ -38,7 +38,7 @@ class InventoryApp():
 		print('\t\t2. List Inventories')
 		print('\t\t3. Select Inventory')
 		print('\t\t4. List Inventory Items')
-		print('\t\t5. Add Items (Not Implemented)')
+		print('\t\t5. Add Items')
 		print('\t\t6. Exit')
 		print()
 
@@ -134,8 +134,12 @@ class InventoryApp():
 		"""Add items to inventory."""
 		if __debug__:
 			print('add_items() method called...')
-		input('\n\vThis method is not yet implemented. Press any key to continue: ')
-
+		#input('\n\vThis method is not yet implemented. Press any key to continue: ')
+		name = input("Enter Item Name :  ")
+		count = input("Enter the Count of Item : ")
+		inventory_id = input("Please to insert the Product Id:")
+		self.business_logic.create_new_item(inventory_id,name,count)
+		input(f'One row inserted successfully')
 
 	def start_application(self):
 		"""Start the applications."""

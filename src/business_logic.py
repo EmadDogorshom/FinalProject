@@ -59,7 +59,11 @@ class BusinessLogic():
 			print(f'Exception in business logic: {e}')
 		return query_results
 
-	def create_new_item(self,name: str, count: int, invt_id : int):
+	def create_new_item(self,inventory_id : int, name: str, count: int ):
 		"""Get all cxcxbxcb"""
   		#self._persistence_wrapper.create_item()
-		self._persistence_wrapper.create_item(name,count,inventory_id)
+		item_id = 0
+		try: 
+			self._persistence_wrapper.create_item(item_id,inventory_id,name,count)
+		except Exception as e :
+			print(f'Exception in Business Logic: {e}')
