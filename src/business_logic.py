@@ -44,6 +44,7 @@ class BusinessLogic():
 		"""Adds a new inventory to the datastore."""
 		inventory_id = 0
 		try:
+			# call the create_invetory method in the wa
 			inventory_id = self._persistence_wrapper.create_inventory(name, description, date)
 		except Exception as e:
 			print(f'Exception in business logic: {e}')
@@ -60,7 +61,7 @@ class BusinessLogic():
 		return query_results
 
 	def create_new_item(self,inventory_id : int, name: str, count: int ):
-		"""Get all cxcxbxcb"""
+		"""Get alld sgdsgsdg"""
   		#self._persistence_wrapper.create_item()
 		item_id = 0
 		try: 

@@ -70,13 +70,16 @@ class InventoryApp():
 		"""Create new inventory."""		
 		self.clear_screen()
 		if __debug__:
-			print('new_inventory() method called...')
-		name = input("Enter a Product Name :  ")
-		description = input("Enter the Product Description : ")
-		today = datetime.now()
-		self.business_logic.create_new_inventory(name,description,today)
-		input(f'One row inserted successfully')
-		input('\n\nPress any key to continue...')
+			print('The new_inventory() method called...')
+		try:
+			name = input("Enter a Product Name :  ")
+			description = input("Enter the Product Description : ")
+			today = datetime.now()
+			self.business_logic.create_new_inventory(name,description,today)
+			print(f'One row inserted successfully')
+			input('\n\nPress any key to continue...')
+		except Exception as e:
+			print(f'Exception in Add_inventory() method : {e}')
 
 
 	def list_inventories(self):
@@ -135,12 +138,14 @@ class InventoryApp():
 		if __debug__:
 			print('add_items() method called...')
 		#input('\n\vThis method is not yet implemented. Press any key to continue: ')
-		name = input("Enter Item Name :  ")
-		count = input("Enter the Count of Item : ")
-		inventory_id = input("Please to insert the Product Id:")
-		self.business_logic.create_new_item(inventory_id,name,count)
-		input(f'One row inserted successfully')
-
+		try:
+			name = input("Enter Item Name :  ")
+			count = input("Enter the Count of Item : ")
+			inventory_id = input("Please to insert the Inventory Id:")
+			self.business_logic.create_new_item(inventory_id,name,count)
+			print(f'One row inserted successfully')
+		except Exception as e :
+			print(f'Excetion in add_item() method : {e}')
 	def start_application(self):
 		"""Start the applications."""
 		while self.keep_going:
@@ -151,15 +156,17 @@ class InventoryApp():
 					
 	def print_inventory_list(self, inv_list):
 		t = PrettyTable(['ID', 'Name', 'Description'])
-		for row in inv_list:
-			t.add_row([row[0], row[1], row[2]])
-		print(t)
+		if inv_list is not None:
+			for row in inv_list:
+				t.add_row([row[0], row[1], row[2]])
+			print(t)
 
 	def print_items_list(self, items_list):
 		t = PrettyTable(['ID', 'Inventory ID', 'Item', 'Count'])
-		for row in items_list:
-			t.add_row([row[0], row[1], row[2], row[3]])
-		print(t)
+		if items_list is not None:
+			for row in items_list:
+				t.add_row([row[0], row[1], row[2], row[3]])
+			print(t)
 
 
 
