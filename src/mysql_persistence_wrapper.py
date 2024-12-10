@@ -10,10 +10,9 @@ class MySQLPersistenceWrapper(PersistenceWrapperInterface):
 		"""Initializes """
 		# Constants
 		self.SELECT_ALL_INVENTORIES = 'SELECT id, name, description FROM inventories'
-		self.INSERT_INVENTORY =  'INSERT INTO inventories (id, name, description, date) VALUES(%s,%s, %s, %s)'
-		self.INSERT_ITEM =  'INSERT INTO items (id,inventory_id, item, count) VALUES(%s,%s, %s, %s)'
-		self.GET_MAX_ID_INVENTORY ='SELECT MAX(id) from inventories'
-		self.GET_MAX_ID_ITEMS= 'SELECT MAX(id) from items'
+		self.INSERT_INVENTORY =  'INSERT INTO inventories ( name, description, date) VALUES(%s, %s, %s)'
+		self.INSERT_ITEM =  'INSERT INTO items (inventory_id, item, count) VALUES(%s, %s, %s)'
+
 		#self.STATIC_INSERT= """INSERT INTO inventories(id, name, description, date) VALUES (3,'emad','dsgssdg','2024-11-20')"""
 		self.INSERT = 'INSERT INTO items (inventory_id, item, count) VALUES(%s, %s, %s)'
 		self.SELECT_ALL_ITEMS_FOR_INVENTORY_ID = 'SELECT id, inventory_id, item, count FROM items WHERE inventory_id = %s'
@@ -60,9 +59,9 @@ class MySQLPersistenceWrapper(PersistenceWrapperInterface):
 		try :
 			cursor = self._db_connection.cursor()
 			# get the max id from the table and add 1 to it to insert the next value
-			cursor.execute(self.GET_MAX_ID_INVENTORY)
-			result = cursor.fetchone()
-			values = (result[0] + 1 ,name,description,date)
+			#cursor.execute(self.GET_MAX_ID_INVENTORY)
+			#result = cursor.fetchone()
+			values = (name,description,date)
 			# execute the INSERT_INVENTORY query to insert row into inventory table
 			cursor.execute(self.INSERT_INVENTORY, values)
 			self._db_connection.commit()
@@ -78,9 +77,9 @@ class MySQLPersistenceWrapper(PersistenceWrapperInterface):
 		try:
 			cursor = self._db_connection.cursor()
 			# get the max id from the table
-			cursor.execute(self.GET_MAX_ID_ITEMS)
-			result = cursor.fetchone()
-			values = (result[0] + 1, inventory_id, item ,count)
+			#cursor.execute(self.GET_MAX_ID_ITEMS)
+			#result = cursor.fetchone()
+			values = (inventory_id, item ,count)
 			cursor.execute(self.INSERT_ITEM, values)
 			# commit the inserted row into the DB
 			self._db_connection.commit()
